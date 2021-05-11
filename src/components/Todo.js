@@ -6,7 +6,7 @@ const Todo = ({todo, todos, setTodos}) =>{
     }
     const completeHandler = () =>{
         setTodos(todos.map((item) =>{
-            return item.id == todo.id 
+            return item.id === todo.id 
             ? {...item, completed:!item.completed}
             : item;
         }))
