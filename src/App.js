@@ -4,13 +4,17 @@ import Form from './components/Form';
 import TodoList from './components/TodoList';
 
 function App() {
-  //Use Effect
-  
   //States
   const [inputText, setInputText] = useState("")
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || [])
   const [status, setStatus] = useState('all')
   const [filteredTodos, setFilteredTodos] = useState(todos)
+  //Use Effect
+  useEffect(() => {
+    filterHandler();
+    saveLocalTodos();
+  }, [todos, status])
+  
   //Functions
   const filterHandler = () => {
     switch (status){
@@ -24,9 +28,10 @@ function App() {
         setFilteredTodos(todos)
     }
   }
-  useEffect(() => {
-    filterHandler();
-  }, [todos, status])
+  // Save to local storage
+  const saveLocalTodos = () =>{
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }
   return ( 
     <div className = "App" >
       <header>
